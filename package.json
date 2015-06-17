@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Accessible toggling",
   "author": "mjbp",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-debug": "^2.0.1",
@@ -11,5 +11,8 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
     "run-sequence": "^1.1.0"
+  },
+  "dependencies": {
+      "utils": "^0.1.0"
   }
 }
