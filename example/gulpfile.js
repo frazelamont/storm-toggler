@@ -3,9 +3,12 @@
 var gulp = require('gulp'),
     pkg = require('./package.json'),
     header = require('gulp-header'),
+    browserSync = require('browser-sync'),
+    reload = browserSync.reload,
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
     debug = require('gulp-debug'),
+    browserify = require('gulp-browserify'),
     runSequence = require('run-sequence');
 
 
@@ -36,15 +39,31 @@ var onError = function(err) {
  ************************/
 /* Concat the js */
 gulp.task('js', function() {
-    return gulp.src('src/toggler.js')
+    return gulp.src('src/js/app.js')
+        .pipe(browserify({
+          insertGlobals : true,
+          debug : true
+        }))
 		.pipe(header(banner, {pkg : pkg}))
-		.pipe(debug())
-		.pipe(gulp.dest('dist/'));
+		.pipe(gulp.dest('dist/js'));
+});
+
+/* Server with auto reload and browersync */
+gulp.task('server', ['js'], function () {
+      browserSync({
+        notify: false,
+        // https: true,
+        server: ['dist'],
+        tunnel: true
+      });
+
+      gulp.watch(['src/js/*'], ['js', reload]);
 });
 
 /************************
  *  Task collection API
  ************************/
 gulp.task('default', ['js']);
+gulp.task('serve', ['server']);
 
 

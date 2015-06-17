@@ -1,4 +1,3 @@
-/*global window, define, require, module */
 /**
  * @name UTILS
  * @description Common utility functions

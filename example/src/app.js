@@ -1,4 +1,3 @@
-/*global window, document, console, require*/
 var STORM = (function(w, d) {
 	'use strict';
     
