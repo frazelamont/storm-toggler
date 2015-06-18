@@ -37,6 +37,10 @@
             'aria-expanded' : 'false'
         });
         
+        UTILS.attributelist.add(this.targetElement, {
+            'aria-hidden': true
+        });
+        
         this.btn.addEventListener('click', function(e) { self.toggle.call(self, e); }, false);
     }
     
@@ -53,6 +57,7 @@
             UTILS.classlist.remove(self.docEl, self.settings.animatingClass)
                     .toggle(self.docEl, self.statusClass);
             UTILS.attributelist.toggle(self.btn, 'aria-expanded');
+            UTILS.attributelist.toggle(self.targetElement, 'aria-hidden');
             
         }, delay);
     };

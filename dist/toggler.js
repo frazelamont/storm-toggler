@@ -1,8 +1,8 @@
 /**
  * @name toggler: Accessible toggling
- * @version 0.1.0: Wed, 17 Jun 2015 15:13:02 GMT
+ * @version 0.1.0: Thu, 18 Jun 2015 16:14:47 GMT
  * @author mjbp
- * @license ISC
+ * @license MIT
  */(function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     define([], factory);
@@ -42,6 +42,10 @@
             'aria-expanded' : 'false'
         });
         
+        UTILS.attributelist.add(this.targetElement, {
+            'aria-hidden': true
+        });
+        
         this.btn.addEventListener('click', function(e) { self.toggle.call(self, e); }, false);
     }
     
@@ -58,6 +62,7 @@
             UTILS.classlist.remove(self.docEl, self.settings.animatingClass)
                     .toggle(self.docEl, self.statusClass);
             UTILS.attributelist.toggle(self.btn, 'aria-expanded');
+            UTILS.attributelist.toggle(self.targetElement, 'aria-hidden');
             
         }, delay);
     };
