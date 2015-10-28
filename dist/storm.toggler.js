@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.2.1: Wed, 28 Oct 2015 14:45:54 GMT
+ * @version 0.1.1: Wed, 28 Oct 2015 16:34:18 GMT
  * @author mjbp
  * @license MIT
  */(function(root, factory) {
@@ -18,7 +18,7 @@
             delay: 200
         },
         lastFocus,
-        UTILS = require('storm.utils');
+        UTILS = require('storm-utils');
     
     
     function StormToggler(el, opts) {

@@ -9,6 +9,7 @@ Progressive enhancement-lead, accessible state toggling. Toggles classes for CSS
     - Based on standard HTML5 markup
 
 ##Use cases
+
     - off-canvas elements, including hamburger or kebab navigation
     - modals (excluding gallery modals)
     - dropdown toggles

@@ -13,7 +13,7 @@
             delay: 200
         },
         lastFocus,
-        UTILS = require('storm.utils');
+        UTILS = require('storm-utils');
     
     
     function StormToggler(el, opts) {
