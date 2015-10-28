@@ -1,9 +1,9 @@
-var STORM = (function(w, d) {
+var STORMUI = (function(w, d) {
 	'use strict';
     
-    var toggler = require('./libs/toggler'),
+    var StormToggler = require('./libs/storm.toggler'),
         init = function() {
-            toggler.init(d.querySelectorAll('.js-toggle'));
+            StormToggler.init(d.querySelectorAll('.js-toggle'));
         };
 	
 	return {
@@ -12,4 +12,4 @@ var STORM = (function(w, d) {
 	
 })(window, document, undefined);
 
-if('addEventListener' in window) window.addEventListener('DOMContentLoaded', STORM.init, false);
+if('addEventListener' in window) window.addEventListener('DOMContentLoaded', STORMUI.init, false);

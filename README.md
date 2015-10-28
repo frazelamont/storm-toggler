@@ -1,15 +1,15 @@
-#Toggler
+#Storm Toggler
 
-Progressive enhancement-lead, accessible toggling. 
+Progressive enhancement-lead, accessible state toggling. Toggles classes for CSS-based UI state manipulation.
 
-    - Toggle documentElement class based on target, style agnostic so you can apply your own styles and transitions for the most performant solution
-    - Uses id/href-based targeting, so falls back to in-document anchor link
+    - Toggle documentElement classes based on target, style agnostic so you can apply your own styles and transitions
+    - Uses id/href-based targeting, so falls back to a fragment identifier link
     - Adds and toggles ARIA attributes
     - Built-in transition delays and animating-out class to hook transitions on to avoid unwanted animations on load/resize
     - Configurable
     - Based on standard HTML5 markup
 
 ##Use cases
-    - modals (excluding gallery modals)
     - off-canvas elements, including hamburger or kebab navigation
+    - modals (excluding gallery modals)
     - dropdown toggles
