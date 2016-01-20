@@ -10,7 +10,8 @@
 	'use strict';
     
     var defaults = {
-            delay: 200
+            delay: 200,
+            targetLocal: false
         },
         lastFocus,
         UTILS = require('storm-utils');
@@ -23,11 +24,17 @@
         this.settings = UTILS.merge({}, defaults, opts);
         
         this.btn = el;
-        this.docEl = document.documentElement;
         this.targetId = (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1);
         this.targetElement = document.getElementById(this.targetId);
-        this.statusClass = ['on--', this.targetId].join('');
-        this.animatingClass = ['animating--', this.targetId].join('');
+        this.classTarget = (!this.settings.targetLocal) ? document.documentElement : this.targetElement.parentNode;
+        
+        if((!this.settings.targetLocal)) {
+            this.statusClass = ['on--', this.targetId].join('');
+            this.animatingClass = ['animating--', this.targetId].join('');
+        } else {
+            this.statusClass = 'active';
+            this.animatingClass = 'animating';
+        }
         
         ariaControls = this.targetId;
         
@@ -46,16 +53,17 @@
     
     StormToggler.prototype.toggle = function(e) {
         var self = this,
-            delay = !!document.querySelector('.' + self.statusClass) ? self.settings.delay : 0;
+            //delay = !!document.querySelector('.' + self.statusClass) ? self.settings.delay : 0,
+            delay = UTILS.classlist.has(self.classTarget, self.statusClass) ?  self.settings.delay : 0;
         
         e.preventDefault();
         e.stopPropagation();
         
-        UTILS.classlist.add(this.docEl, this.animatingClass);
+        UTILS.classlist.add(self.classTarget, this.animatingClass);
         
         window.setTimeout(function() {
-            UTILS.classlist.remove(self.docEl, self.animatingClass)
-                    .toggle(self.docEl, self.statusClass);
+            UTILS.classlist.remove(self.classTarget, self.animatingClass)
+                    .toggle(self.classTarget, self.statusClass);
             UTILS.attributelist.toggle(self.btn, 'aria-expanded');
             UTILS.attributelist.toggle(self.targetElement, 'aria-hidden');
             
