@@ -63,7 +63,7 @@
       * @description Merges two (or more) objects, giving the last one precedence
       */
       function merge(target, source) {
-          if ( typeof target !== 'object') {
+          if (typeof target !== 'object') {
               target = {};
           }
           
