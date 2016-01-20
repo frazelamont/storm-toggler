@@ -4,7 +4,6 @@ var STORMUI = (function(w, d) {
     var StormToggler = require('./libs/storm.toggler'),
         init = function() {
             StormToggler.init(d.querySelectorAll('.js-toggle'));
-            StormToggler.init(d.querySelectorAll('.js-toggle--sub'), {targetLocal: true});
         };
 	
 	return {
