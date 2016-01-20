@@ -114,12 +114,7 @@
     <nav role="navigation" id="navigation" class="nav-primary">
         <ul class="nav-primary-list">
             <li><a href="#" class="nav-primary-item nav-primary-item--current">Home</a></li>
-            <li><a class="nav-primary-item" href="#">About us</a>
-                <a href="#sub" class="js-toggle--sub">Test</a>
-                <div id="sub">
-                    Testing
-                </div>
-            </li>
+            <li><a class="nav-primary-item" href="#">About us</a></li>
             <li><a class="nav-primary-item" href="#">Contact</a></li>
         </ul>
     </nav>
@@ -147,9 +142,9 @@
         <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle'));</code></pre>
         <h3>Options</h3>
         <p><b>delay</b>, Number, milliseconds the animating class persists, corresponding to duration of your CSS animation/transition, default 200ms</p>
-        <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle', {'delay': 360}));</code></pre>
+        <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle', {delay: 360}));</code></pre>
         <p><b>targetLocal</b>, boolean, to determine where the state classes are added so the toggler can toggle global (page-wide) state or local (subcollection of DOM), default false</p>
-        <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle', {'targetLocal': true}));</code></pre>
+        <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle', {targetLocal: true}));</code></pre>
         <h2>Example</h2>
         <p>Off-canvas menu, as seen on this page</p>
         <h3>HTML</h3>

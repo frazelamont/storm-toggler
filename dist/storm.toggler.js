@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.1.2: Wed, 20 Jan 2016 14:34:55 GMT
+ * @version 0.1.6: Wed, 20 Jan 2016 14:59:12 GMT
  * @author mjbp
  * @license MIT
  */(function(root, factory) {
