@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.1.6: Wed, 20 Jan 2016 14:59:12 GMT
+ * @version 0.2.1: Thu, 11 Feb 2016 09:54:40 GMT
  * @author mjbp
  * @license MIT
  */(function(root, factory) {
@@ -14,19 +14,22 @@
 }(this, function() {
 	'use strict';
     
-    var defaults = {
+    var instances = [],
+        defaults = {
             delay: 200,
-            targetLocal: false
+            targetLocal: false,
+            callback: null
         },
-        lastFocus,
-        UTILS = require('storm-utils');
+        merge = require('merge'),
+        classlist = require('dom-classlist'),
+        attributelist = require('storm-attributelist');
     
     
     function StormToggler(el, opts) {
         var self = this,
             ariaControls;
         
-        this.settings = UTILS.merge({}, defaults, opts);
+        this.settings = merge({}, defaults, opts);
         
         this.btn = el;
         this.targetId = (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1);
@@ -43,13 +46,13 @@
         
         ariaControls = this.targetId;
         
-        UTILS.attributelist.add(this.btn, {
+        attributelist.set(this.btn, {
             'role' : 'button',
             'aria-controls' : ariaControls,
             'aria-expanded' : 'false'
         });
         
-        UTILS.attributelist.add(this.targetElement, {
+        attributelist.set(this.targetElement, {
             'aria-hidden': true
         });
         
@@ -58,37 +61,53 @@
     
     StormToggler.prototype.toggle = function(e) {
         var self = this,
-            //delay = !!document.querySelector('.' + self.statusClass) ? self.settings.delay : 0,
-            delay = UTILS.classlist.has(self.classTarget, self.statusClass) ?  self.settings.delay : 0;
+            delay = classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
         
         e.preventDefault();
         e.stopPropagation();
         
-        UTILS.classlist.add(self.classTarget, this.animatingClass);
+        classlist(this.classTarget).add(this.animatingClass);
         
         window.setTimeout(function() {
-            UTILS.classlist.remove(self.classTarget, self.animatingClass)
-                    .toggle(self.classTarget, self.statusClass);
-            UTILS.attributelist.toggle(self.btn, 'aria-expanded');
-            UTILS.attributelist.toggle(self.targetElement, 'aria-hidden');
-            
-        }, delay);
+            classlist(this.classTarget).remove(this.animatingClass);
+            classlist(this.classTarget).toggle(this.statusClass);
+            attributelist.toggle(this.btn, 'aria-expanded');
+            attributelist.toggle(this.targetElement, 'aria-hidden');
+            (!!this.settings.callback && typeof this.settings.callback === 'function') && this.settings.callback.call(self);
+        }.bind(this), delay);
     };
     
-    function init(els, opts) {
-        if(els.length === 0 || !('querySelectorAll' in document)) {
-            throw new Error('Toggler cannot be initialised, unsupported browser or no toggleable elements');
-        }
-        var togglers = [];
+    function init(sel, opts) {
+        var els = [].slice.call(document.querySelectorAll(sel));
         
-        [].slice.call(els).forEach(function(el){
-            togglers.push(new StormToggler(el, opts));
+        if(els.length === 0) {
+            throw new Error('Toggler cannot be initialised, no augmentable elements found');
+        }
+        
+        instances = els.map(function(el){
+            return new StormToggler(el, opts);
         });
-        return togglers;
+        
+        return instances;
+    }
+    
+    function reload(els, opts) {
+        //retain toggled elements and state
+        //loop through instances, check if DOMElement matches els, if not create new instance and push into array 
+        /*
+        destroy();
+        init(els, opts);
+        */
+    }
+    
+    function destroy() {
+        instances = [];  
     }
 	
 	return {
-		init: init
+		init: init,
+		reload: reload,
+		destroy: destroy
 	};
 	
  }));

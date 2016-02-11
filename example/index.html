@@ -145,6 +145,8 @@
         <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle', {delay: 360}));</code></pre>
         <p><b>targetLocal</b>, boolean, to determine where the state classes are added so the toggler can toggle global (page-wide) state or local (subcollection of DOM), default false</p>
         <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle', {targetLocal: true}));</code></pre>
+        <p><b>callback</b>, function, called after each toggle event</p>
+        <pre><code>var StormToggler = require('storm.toggler');</code><code>StormToggler.init(d.querySelectorAll('.js-toggle', {callback: function() { console.log('Toggled'); }}));</code></pre>
         <h2>Example</h2>
         <p>Off-canvas menu, as seen on this page</p>
         <h3>HTML</h3>
