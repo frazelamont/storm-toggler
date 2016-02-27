@@ -9,8 +9,6 @@ module.exports = (function() {
         },
         assign = require('object-assign'),
         merge = require('merge'),
-        classlist = require('dom-classlist'),
-        attributelist = require('storm-attributelist'),
 		StormToggler = {
 			init: function() {
 				this.targetElement = document.getElementById(this.targetId);
@@ -23,31 +21,31 @@ module.exports = (function() {
 					this.animatingClass = 'animating';
 				}
         
-				attributelist.set(this.btn, {
+				this.attributelist.set(this.btn, {
 					'role' : 'button',
 					'aria-controls' : this.targetId,
 					'aria-expanded' : 'false'
 				});
 
-				attributelist.set(this.targetElement, {
+				this.attributelist.set(this.targetElement, {
 					'aria-hidden': true
 				});
 
 				this.btn.addEventListener('click', function(e) { this.toggle.call(this, e); }.bind(this), false);
 			},
 			toggle: function(e){
-				var delay = classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
+				var delay = this.classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
 				
 				e.preventDefault();
         		e.stopPropagation();
 				
-				classlist(this.classTarget).add(this.animatingClass);
+				this.classlist(this.classTarget).add(this.animatingClass);
 				
 				window.setTimeout(function() {
-					classlist(this.classTarget).remove(this.animatingClass);
-					classlist(this.classTarget).toggle(this.statusClass);
-					attributelist.toggle(this.btn, 'aria-expanded');
-					attributelist.toggle(this.targetElement, 'aria-hidden');
+					this.classlist(this.classTarget).remove(this.animatingClass);
+					this.classlist(this.classTarget).toggle(this.statusClass);
+					this.attributelist.toggle(this.btn, 'aria-expanded');
+					this.attributelist.toggle(this.targetElement, 'aria-hidden');
 					(!!this.settings.callback && typeof this.settings.callback === 'function') && this.settings.callback.call(this);
 				}.bind(this), delay);
 			}
@@ -58,6 +56,9 @@ module.exports = (function() {
 			btn: el,
 			targetId: (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1),
 			settings: merge({}, defaults, opts)
+		}, {
+			classlist: require('dom-classlist'),
+			attributelist: require('storm-attributelist')
 		});
 		instances[i].init();
 	}
