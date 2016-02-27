@@ -33,6 +33,7 @@
   "dependencies": {
     "dom-classlist": "^1.0.1",
     "merge": "^1.2.0",
+    "object-assign": "^4.0.1",
     "storm-attributelist": "^0.1.0"
   }
 }
