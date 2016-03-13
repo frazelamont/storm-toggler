@@ -1,9 +1,17 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.5.0: Sat, 27 Feb 2016 22:09:52 GMT
+ * @version 0.6.0: Sun, 13 Mar 2016 16:37:51 GMT
  * @author mjbp
  * @license MIT
- */module.exports = (function() {
+ */(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    root.StormToggler = factory();
+  }
+}(this, function() {
 	'use strict';
     
     var instances = [],
@@ -12,8 +20,6 @@
             targetLocal: false,
             callback: null
         },
-        assign = require('object-assign'),
-        merge = require('merge'),
 		StormToggler = {
 			init: function() {
 				this.targetElement = document.getElementById(this.targetId);
@@ -26,44 +32,41 @@
 					this.animatingClass = 'animating';
 				}
         
-				this.attributelist.set(this.btn, {
+				STORM.UTILS.attributelist.set(this.btn, {
 					'role' : 'button',
 					'aria-controls' : this.targetId,
 					'aria-expanded' : 'false'
 				});
 
-				this.attributelist.set(this.targetElement, {
+				STORM.UTILS.attributelist.set(this.targetElement, {
 					'aria-hidden': true
 				});
 
 				this.btn.addEventListener('click', function(e) { this.toggle.call(this, e); }.bind(this), false);
 			},
 			toggle: function(e){
-				var delay = this.classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
+				var delay = STORM.UTILS.classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
 				
 				e.preventDefault();
         		e.stopPropagation();
 				
-				this.classlist(this.classTarget).add(this.animatingClass);
+				STORM.UTILS.classlist(this.classTarget).add(this.animatingClass);
 				
 				window.setTimeout(function() {
-					this.classlist(this.classTarget).remove(this.animatingClass);
-					this.classlist(this.classTarget).toggle(this.statusClass);
-					this.attributelist.toggle(this.btn, 'aria-expanded');
-					this.attributelist.toggle(this.targetElement, 'aria-hidden');
+					STORM.UTILS.classlist(this.classTarget).remove(this.animatingClass);
+					STORM.UTILS.classlist(this.classTarget).toggle(this.statusClass);
+					STORM.UTILS.attributelist.toggle(this.btn, 'aria-expanded');
+					STORM.UTILS.attributelist.toggle(this.targetElement, 'aria-hidden');
 					(!!this.settings.callback && typeof this.settings.callback === 'function') && this.settings.callback.call(this);
 				}.bind(this), delay);
 			}
 		};
 	
 	function create(el, i, opts) {
-		instances[i] = assign(Object.create(StormToggler), {
+		instances[i] = STORM.UTILS.assign(Object.create(StormToggler), {
 			btn: el,
 			targetId: (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1),
-			settings: merge({}, defaults, opts)
-		}, {
-			classlist: require('dom-classlist'),
-			attributelist: require('storm-attributelist')
+			settings: STORM.UTILS.merge({}, defaults, opts)
 		});
 		instances[i].init();
 	}
@@ -100,4 +103,4 @@
 		destroy: destroy
 	};
 	
- }());
+ }));
