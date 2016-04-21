@@ -36,3 +36,11 @@ targetLocal, Boolean, determine where the state classes are added so the toggler
 
 @param
 callback, function, called after each toggle event
+
+##API
+    
+    - init, function, initialise
+    - open, boolean, status of toggled element
+    - toggle, function, switch state
+    - reload, function
+    - destroy, function

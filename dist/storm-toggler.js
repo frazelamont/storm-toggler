@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.6.0: Sun, 13 Mar 2016 16:37:51 GMT
+ * @version 0.6.0: Thu, 21 Apr 2016 15:35:35 GMT
  * @author mjbp
  * @license MIT
  */(function(root, factory) {
@@ -22,6 +22,7 @@
         },
 		StormToggler = {
 			init: function() {
+                this.open = false;
 				this.targetElement = document.getElementById(this.targetId);
         		this.classTarget = (!this.settings.targetLocal) ? document.documentElement : this.targetElement.parentNode;
 				if((!this.settings.targetLocal)) {
@@ -47,12 +48,15 @@
 			toggle: function(e){
 				var delay = STORM.UTILS.classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
 				
-				e.preventDefault();
-        		e.stopPropagation();
-				
+				if(!!e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
 				STORM.UTILS.classlist(this.classTarget).add(this.animatingClass);
 				
 				window.setTimeout(function() {
+                    this.open = !this.open;
 					STORM.UTILS.classlist(this.classTarget).remove(this.animatingClass);
 					STORM.UTILS.classlist(this.classTarget).toggle(this.statusClass);
 					STORM.UTILS.attributelist.toggle(this.btn, 'aria-expanded');

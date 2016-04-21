@@ -9,7 +9,16 @@ var UTILS = {
 
 		var Toggler = require('./libs/storm-toggler'),
 			init = function() {
-				Toggler.init('.js-toggle');
+				global.STORM.Togglers = Toggler.init('.js-toggle');
+                
+                
+                /*
+                d.getElementById('js-test').addEventListener('click', function(){
+                    global.STORM.Togglers.forEach(function(el){
+                        !!el.open && el.toggle();
+                    });
+                });
+                */
 			};
 
 		return {
