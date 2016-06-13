@@ -17,9 +17,10 @@
         },
 		StormToggler = {
 			init: function() {
-                this.open = false;
 				this.targetElement = document.getElementById(this.targetId);
         		this.classTarget = (!this.settings.targetLocal) ? document.documentElement : this.targetElement.parentNode;
+                this.siblingBtns = [].slice.call(document.querySelectorAll('.js-toggle[href*="#' + this.targetId + '"], .js-toggle[data-target*="#' + this.targetId + '"]'));
+                    
 				if((!this.settings.targetLocal)) {
 					this.statusClass = ['on--', this.targetId].join('');
 					this.animatingClass = ['animating--', this.targetId].join('');
@@ -51,10 +52,11 @@
 				STORM.UTILS.classlist(this.classTarget).add(this.animatingClass);
 				
 				window.setTimeout(function() {
-                    this.open = !this.open;
 					STORM.UTILS.classlist(this.classTarget).remove(this.animatingClass);
 					STORM.UTILS.classlist(this.classTarget).toggle(this.statusClass);
-					STORM.UTILS.attributelist.toggle(this.btn, 'aria-expanded');
+                    this.siblingBtns.forEach(function(sibling){
+					   STORM.UTILS.attributelist.toggle(sibling, 'aria-expanded');
+                    });
 					STORM.UTILS.attributelist.toggle(this.targetElement, 'aria-hidden');
 					(!!this.settings.callback && typeof this.settings.callback === 'function') && this.settings.callback.call(this);
 				}.bind(this), delay);
