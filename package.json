@@ -1,6 +1,6 @@
 {
   "name": "storm-toggler",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Accessible class-toggling for CSS-based UI state manipulation",
   "author": "mjbp",
   "license": "MIT",
