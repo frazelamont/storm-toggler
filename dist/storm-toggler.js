@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.7.1: Mon, 13 Jun 2016 16:01:05 GMT
+ * @version 0.8.0: Tue, 14 Jun 2016 09:20:06 GMT
  * @author mjbp
  * @license MIT
  */(function(root, factory) {
@@ -22,10 +22,11 @@
         },
 		StormToggler = {
 			init: function() {
+                this.open = false;
 				this.targetElement = document.getElementById(this.targetId);
         		this.classTarget = (!this.settings.targetLocal) ? document.documentElement : this.targetElement.parentNode;
                 this.siblingBtns = [].slice.call(document.querySelectorAll('.js-toggle[href*="#' + this.targetId + '"], .js-toggle[data-target*="#' + this.targetId + '"]'));
-                    
+                
 				if((!this.settings.targetLocal)) {
 					this.statusClass = ['on--', this.targetId].join('');
 					this.animatingClass = ['animating--', this.targetId].join('');
@@ -46,6 +47,17 @@
 
 				this.btn.addEventListener('click', function(e) { this.toggle.call(this, e); }.bind(this), false);
 			},
+            toggleAttributes: function(){
+                this.open = !this.open;
+                STORM.UTILS.attributelist.toggle(this.targetElement, 'aria-hidden');
+                this.siblingBtns.forEach(function(sibling){
+                    STORM.UTILS.attributelist.toggle(sibling, 'aria-expanded');
+                });
+            },
+            toggleDocumentState: function(){
+                STORM.UTILS.classlist(this.classTarget).remove(this.animatingClass);
+                STORM.UTILS.classlist(this.classTarget).toggle(this.statusClass);
+            },
 			toggle: function(e){
 				var delay = STORM.UTILS.classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
 				
@@ -57,12 +69,8 @@
 				STORM.UTILS.classlist(this.classTarget).add(this.animatingClass);
 				
 				window.setTimeout(function() {
-					STORM.UTILS.classlist(this.classTarget).remove(this.animatingClass);
-					STORM.UTILS.classlist(this.classTarget).toggle(this.statusClass);
-                    this.siblingBtns.forEach(function(sibling){
-					   STORM.UTILS.attributelist.toggle(sibling, 'aria-expanded');
-                    });
-					STORM.UTILS.attributelist.toggle(this.targetElement, 'aria-hidden');
+                    this.toggleAttributes();
+                    this.toggleDocumentState();
 					(!!this.settings.callback && typeof this.settings.callback === 'function') && this.settings.callback.call(this);
 				}.bind(this), delay);
 			}
