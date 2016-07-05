@@ -8,6 +8,7 @@ Progressive enhancement-lead, accessible state toggling. Toggles classes for CSS
     - Adds and toggles ARIA attributes
     - Built-in transition delays and animating-out class to hook transitions on to avoid unwanted animations on load/resize
     - Based on standard HTML5 markup
+    - Multiple toggle buttons for each target
 
 ##Use cases
 
@@ -18,12 +19,12 @@ Progressive enhancement-lead, accessible state toggling. Toggles classes for CSS
     
 ##Usage
 ```
-npm install storm-toggler
+npm install storm-toggle
 ```
 
 ```js
-var Toggler = require('storm.toggler');
-Toggler.init(document.querySelectorAll('.js-toggle', {delay: 360}));
+var Toggle = require('storm.toggle');
+Toggle.init(document.querySelectorAll('.js-toggle'));
 
 ```
 

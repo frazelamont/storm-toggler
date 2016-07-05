@@ -1,12 +1,10 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.8.0: Tue, 14 Jun 2016 09:20:06 GMT
+ * @version 0.9.0: Tue, 05 Jul 2016 07:48:00 GMT
  * @author mjbp
  * @license MIT
  */(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define([], factory);
-  } else if (typeof exports === 'object') {
+  if (typeof exports === 'object') {
     module.exports = factory();
   } else {
     root.StormToggler = factory();
@@ -55,18 +53,18 @@
                 });
             },
             toggleDocumentState: function(){
-                STORM.UTILS.classlist(this.classTarget).remove(this.animatingClass);
-                STORM.UTILS.classlist(this.classTarget).toggle(this.statusClass);
+                this.classTarget.classList.remove(this.animatingClass);
+                this.classTarget.classList.toggle(this.statusClass);
             },
 			toggle: function(e){
-				var delay = STORM.UTILS.classlist(this.classTarget).contains(this.statusClass) ?  this.settings.delay : 0;
+				var delay = this.classTarget.classList.contains(this.statusClass) ?  this.settings.delay : 0;
 				
 				if(!!e){
                     e.preventDefault();
                     e.stopPropagation();
                 }
                 
-				STORM.UTILS.classlist(this.classTarget).add(this.animatingClass);
+				this.classTarget.classList.add(this.animatingClass);
 				
 				window.setTimeout(function() {
                     this.toggleAttributes();
@@ -77,10 +75,10 @@
 		};
 	
 	function create(el, i, opts) {
-		instances[i] = STORM.UTILS.assign(Object.create(StormToggler), {
+		instances[i] = Object.assign(Object.create(StormToggler), {
 			btn: el,
 			targetId: (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1),
-			settings: STORM.UTILS.merge({}, defaults, opts)
+			settings: Object.assign({}, defaults, opts)
 		});
 		instances[i].init();
 	}
