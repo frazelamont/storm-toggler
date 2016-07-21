@@ -34,15 +34,10 @@
 					'aria-expanded' : 'false'
 				});
 
-				STORM.UTILS.attributelist.set(this.targetElement, {
-					'aria-hidden': true
-				});
-
 				this.btn.addEventListener('click', function(e) { this.toggle.call(this, e); }.bind(this), false);
 			},
             toggleAttributes: function(){
                 this.open = !this.open;
-                STORM.UTILS.attributelist.toggle(this.targetElement, 'aria-hidden');
                 this.siblingBtns.forEach(function(sibling){
                     STORM.UTILS.attributelist.toggle(sibling, 'aria-expanded');
                 });

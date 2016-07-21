@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible class-toggling for CSS-based UI state manipulation
- * @version 0.9.0: Tue, 05 Jul 2016 07:48:00 GMT
+ * @version 0.10.0: Thu, 21 Jul 2016 12:16:03 GMT
  * @author mjbp
  * @license MIT
  */(function(root, factory) {
@@ -39,15 +39,10 @@
 					'aria-expanded' : 'false'
 				});
 
-				STORM.UTILS.attributelist.set(this.targetElement, {
-					'aria-hidden': true
-				});
-
 				this.btn.addEventListener('click', function(e) { this.toggle.call(this, e); }.bind(this), false);
 			},
             toggleAttributes: function(){
                 this.open = !this.open;
-                STORM.UTILS.attributelist.toggle(this.targetElement, 'aria-hidden');
                 this.siblingBtns.forEach(function(sibling){
                     STORM.UTILS.attributelist.toggle(sibling, 'aria-expanded');
                 });
