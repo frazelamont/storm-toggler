@@ -1,47 +1,83 @@
 #Storm Toggler
 
-Progressive enhancement-lead, accessible state toggling. Toggles classes for CSS-based UI state manipulation.
+[![Build Status](https://travis-ci.org/mjbp/storm-component-boilerplate.svg?branch=master)](https://travis-ci.org/mjbp/storm-toggler)
+[![codecov.io](http://codecov.io/github/mjbp/storm-component-boilerplate/coverage.svg?branch=master)](http://codecov.io/github/mjbp/storm-toggler?branch=master)
+[![npm version](https://badge.fury.io/js/storm-component-boilerplate.svg)](https://badge.fury.io/js/storm-toggler)
 
-    - Toggle documentElement classes based on target, style agnostic so you can apply your own styles and transitions based on page states
-    - Or toggle parent element class to change localised UI states, or sub-states
-    - Uses id/href-based targeting, so falls back to a fragment identifier link
-    - Adds and toggles ARIA attributes
-    - Built-in transition delays and animating-out class to hook transitions on to avoid unwanted animations on load/resize
-    - Based on standard HTML5 markup
-    - Multiple toggle buttons for each target
+Class and ARIA toggle UI state manipulation
 
-##Use cases
-
-    - off-canvas elements, including hamburger or kebab navigation
-    - dropdown toggles, show/hide
-    - any basic UI animation involving an element trigger
-    - localised UI sub-state toggling applies to child or nested elements, such as submenu item children, or nay other nested togglable compomonent
-    
 ##Usage
+HTML
 ```
-npm install storm-toggle
+<a href="#target" class="js-toggler"></a>
+<div id="target"></div>
 ```
 
-```js
-var Toggle = require('storm.toggle');
-Toggle.init(document.querySelectorAll('.js-toggle'));
-
+JS
 ```
+npm i -S storm-toggler
+```
+either using es6 import
+```
+import Toggler from 'storm-toggler';
+
+Toggler.init('.js-toggler');
+```
+aynchronous browser loading (use the .standalone version in the /dist folder)
+```
+import Load from 'storm-load';
+
+Load('/content/js/async/storm-toggler.standalone.js')
+    .then(() => {
+        StormToggler.init('.js-toggler');
+    });
+```
+or es5 commonjs  (legacy, use the .standalone version in the /dist folder)
+```
+var Toggler = require('./libs/storm-toggler');
+
+Toggler.init('.js-toggler');
+```
+
+
+##Example
+[https://mjbp.github.io/storm-toggler](https://mjbp.github.io/storm-toggler)
+
 
 ##Options
-@param
-delay, Number, milliseconds the animating class persists, corresponding to duration of your CSS animation/transition, default 200ms
+```
+    {
+		delay: 0,
+		targetLocal: false,
+		callback: null
+    }
+```
 
-@param
-targetLocal, Boolean, determine where the state classes are added so the toggler can toggle global (page-wide) state or local (subcollection of DOM), default false
+e.g.
+```
+Toggler.init('.js-toggler', {
+    delay: 200
+});
+```
 
-@param
-callback, function, called after each toggle event
 
 ##API
-    
-    - init, function, initialise
-    - open, boolean, status of toggled element
-    - toggle, function, switch state
-    - reload, function
-    - destroy, function
+####`Toggler.init(selector, opts)`
+Initialise the module with a DOM selector and  options object
+
+
+##Tests
+```
+npm run test
+```
+
+##Browser support
+This is module has both es6 and es5 distributions. The es6 version should be used in a workflow that transpiles.
+
+The es5 version depends unpon Object.assign, element.classList, and Promises so all evergreen browsers are supported out of the box, ie9+ is supported with polyfills. ie8+ will work with even more polyfils for Array functions and eventListeners.
+
+##Dependencies
+None
+
+##License
+MIT
