@@ -1,8 +1,8 @@
 #Storm Toggler
 
-[![Build Status](https://travis-ci.org/mjbp/storm-component-boilerplate.svg?branch=master)](https://travis-ci.org/mjbp/storm-toggler)
-[![codecov.io](http://codecov.io/github/mjbp/storm-component-boilerplate/coverage.svg?branch=master)](http://codecov.io/github/mjbp/storm-toggler?branch=master)
-[![npm version](https://badge.fury.io/js/storm-component-boilerplate.svg)](https://badge.fury.io/js/storm-toggler)
+[![Build Status](https://travis-ci.org/mjbp/storm-toggler.svg?branch=master)](https://travis-ci.org/mjbp/storm-toggler)
+[![codecov.io](http://codecov.io/github/mjbp/storm-toggler/coverage.svg?branch=master)](http://codecov.io/github/mjbp/storm-toggler?branch=master)
+[![npm version](https://badge.fury.io/js/storm-toggler.svg)](https://badge.fury.io/js/storm-toggler)
 
 Class and ARIA toggle UI state manipulation
 
