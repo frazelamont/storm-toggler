@@ -2,118 +2,87 @@ import should from 'should';
 import Toggler from '../dist/storm-toggler';
 import 'jsdom-global/register';
 
-const html = `<a href="#target" lass="js-toggler">Test toggler</a>
-             <div id="target"></div>`;
+const html = `<a href="#target-1" class="js-toggler">Test toggler</a>
+			 <a href="#target-1" class="js-toggler">Test toggler</a>
+             <div id="target-1"></div>
+             <a href="#target-2" class="js-toggler">Test toggler</a>
+             <div id="target-2"></div>
+			 <a href="#target-3" class="js-toggler-2">Test toggler</a>
+             <div id="target-3"></div>
+			 <div>
+				<a href="#target-4" class="js-toggler-local">Test toggler</a>
+				<div id="target-4"></div>
+			</div>`;
 
 document.body.innerHTML = html;
 
-let Togglers = Toggler.init('.js-toggler');
+let Togglers = Toggler.init('.js-toggler'),
+	TogglersNoDelay = Toggler.init('.js-toggler-2', {
+		delay: 0,
+		callback(){}
+	}),
+	TogglersLocal = Toggler.init('.js-toggler-local', {
+		targetLocal: true
+	});
 
 describe('Initialisation', () => {
   
-	it('should return array of length 2', () => {
+	it('should return array of togglers', () => {
 		should(Togglers)
 		.Array()
-		.and.have.lengthOf(2);
+		.and.have.lengthOf(3);
+	});
+
+	it('should throw an error if no elements are found', () => {
+		Toggler.init.bind(Toggler, '.js-err').should.throw();
 	});
 	
-	it('each array item should be an object with DOMElement, settings, init, and  handleClick properties', () => {
-
+	it('each array item should be an object with the correct properties', () => {
 		Togglers[0].should.be.an.instanceOf(Object).and.not.empty();
-		Togglers[0].should.have.property('DOMElement');
+		Togglers[0].should.have.property('btn');
 		Togglers[0].should.have.property('settings').Object();
 		Togglers[0].should.have.property('init').Function();
-		Togglers[0].should.have.property('handleClick').Function();
+		Togglers[0].should.have.property('toggleAttributes').Function();
+		Togglers[0].should.have.property('toggleDocumentState').Function();
+		Togglers[0].should.have.property('toggle').Function();
+    
+	});
+
+	it('should initialisation with different settings if different options are passed', () => {
+		should(TogglersNoDelay[0].settings.delay).not.equal(Togglers[0].settings.delay);
+	});
+
+	it('should attach the handleClick eventListener to DOMElement click event to toggle documentElement className', () => {
+		TogglersNoDelay[0].btn.click();
+		setTimeout(() => {
+			Array.from(document.documentElement.classList).should.containEql('on--target-3');
+			TogglersNoDelay[0].btn.click();
+			setTimeout(() => {
+				TogglersNoDelay.from(document.documentElement.classList).should.not.containEql('on--target-3');
+			}, 1000);
+		});
+	});
+
+	it('should attach the handleClick eventListener to DOMElement click event to toggle parentNode className', () => {
+		TogglersLocal[0].btn.click();
+		setTimeout(() => {
+			Array.from(TogglersLocal[0].btn.parentNode.classList).should.containEql('active');
+			TogglersLocal[0].btn.click();
+			setTimeout(() => {
+				TogglersLocal.from(TogglersLocal[0].btn.parentNode.classList).should.not.containEql('active');
+			}, 1000);
+		});
+	});
+	
+	it('should pass an invokable callback as an option', () => {
+		TogglersNoDelay[0].settings.should.have.property('callback').Function();
+	});
+
+	it('should change sibling buttons aria expanded attribute', () => {
+		Togglers[0].btn.click();
+		setTimeout(() => {
+			Togglers[0].siblingBtns[0].getAttribute('aria-expanded').should.equal(true);
+		});
 	});
 
 });
-
-/*
-let components = Boilerplate.init('.js-boilerplate'),
-    componentsTwo = Boilerplate.init.call(Boilerplate, '.js-boilerplate-two', {
-      delay:400,
-      callback(){
-        this.DOMElement.classList.toggle('callback-test');
-      }
-    });
-
-
-describe('Initialisation', () => {
-
-  it('should return array of length 2', () => {
-
-    should(components)
-      .Array()
-      .and.have.lengthOf(2);
-
-  });
-
-  it('each array item should be an object with DOMElement, settings, init, and  handleClick properties', () => {
-
-    components[0].should.be.an.instanceOf(Object).and.not.empty();
-    components[0].should.have.property('DOMElement');
-    components[0].should.have.property('settings').Object();
-    components[0].should.have.property('init').Function()
-    components[0].should.have.property('handleClick').Function();
-
-  });
-
-
-  it('should attach the handleClick eventListener to DOMElement click event to toggle className', () => {
-
-    components[0].DOMElement.click();
-    Array.from(components[0].DOMElement.classList).should.containEql('clicked');
-    components[0].DOMElement.click();
-    Array.from(components[0].DOMElement.classList).should.not.containEql('clicked');
-
-  });
-
-
-  it('should throw an error if no elements are found', () => {
-
-    Boilerplate.init.bind(Boilerplate, '.js-err').should.throw();
-
-  })
-  
-  it('should initialisation with different settings if different options are passed', () => {
-
-    should(componentsTwo[0].settings.delay).not.equal(components[0].settings.delay);
-  
-  });
-
-});
-
-
-describe('Callbacks', () => {
-
-  it('should be passed in options', () => {
-
-    should(components[0].settings.callback).null();
-    should(componentsTwo[0].settings.callback).Function();
-
-  });
-
-  it('should execute in the context of the component', () => {
-
-    componentsTwo[0].DOMElement.click();
-    Array.from(componentsTwo[0].DOMElement.classList).should.containEql('callback-test');
-    componentsTwo[0].DOMElement.click();
-    Array.from(componentsTwo[0].DOMElement.classList).should.not.containEql('callback-test');
-
-  });
-
-});
-
-describe('Component API', () => {
-
-  it('should trigger the handleClick function toggling the className', () => {
-
-    components[0].handleClick();
-    Array.from(components[0].DOMElement.classList).should.containEql('clicked');
-    components[0].handleClick();
-    Array.from(components[0].DOMElement.classList).should.not.containEql('clicked');
-
-   });
-
-});
-*/

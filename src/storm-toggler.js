@@ -8,15 +8,10 @@ const StormToggler = {
 	init() {
 		this.targetElement = document.getElementById(this.targetId);
 		this.classTarget = (!this.settings.targetLocal) ? document.documentElement : this.targetElement.parentNode;
-		this.siblingBtns = [].slice.call(document.querySelectorAll('.js-toggle[href*="#' + this.targetId + '"], .js-toggle[data-target*="#' + this.targetId + '"]'));
-		
-		if((!this.settings.targetLocal)) {
-			this.statusClass = `on--${this.targetId}`;
-			this.animatingClass = `animating--${this.targetId}`;
-		} else {
-			this.statusClass = 'active';
-			this.animatingClass = 'animating';
-		}
+		this.siblingBtns = [].slice.call(document.querySelectorAll('[href*="#' + this.targetId + '"], [data-target*="#' + this.targetId + '"]'));
+
+		this.statusClass = !this.settings.targetLocal ? `on--${this.targetId}` : 'active';
+		this.animatingClass = !this.settings.targetLocal ? `animating--${this.targetId}` : 'animating';
 
 		this.btn.setAttribute('role','button');
 		this.btn.setAttribute('aria-controls', this.targetId);

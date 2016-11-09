@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Class and ARIA toggle UI state manipulation
- * @version 0.11.0: Tue, 08 Nov 2016 17:31:07 GMT
+ * @version 0.11.0: Wed, 09 Nov 2016 16:13:18 GMT
  * @author mjbp
  * @license MIT
  */
@@ -35,15 +35,10 @@ var StormToggler = {
 
 		this.targetElement = document.getElementById(this.targetId);
 		this.classTarget = !this.settings.targetLocal ? document.documentElement : this.targetElement.parentNode;
-		this.siblingBtns = [].slice.call(document.querySelectorAll('.js-toggle[href*="#' + this.targetId + '"], .js-toggle[data-target*="#' + this.targetId + '"]'));
+		this.siblingBtns = [].slice.call(document.querySelectorAll('[href*="#' + this.targetId + '"], [data-target*="#' + this.targetId + '"]'));
 
-		if (!this.settings.targetLocal) {
-			this.statusClass = 'on--' + this.targetId;
-			this.animatingClass = 'animating--' + this.targetId;
-		} else {
-			this.statusClass = 'active';
-			this.animatingClass = 'animating';
-		}
+		this.statusClass = !this.settings.targetLocal ? 'on--' + this.targetId : 'active';
+		this.animatingClass = !this.settings.targetLocal ? 'animating--' + this.targetId : 'animating';
 
 		this.btn.setAttribute('role', 'button');
 		this.btn.setAttribute('aria-controls', this.targetId);
