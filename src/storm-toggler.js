@@ -17,7 +17,7 @@ const StormToggler = {
 		this.btn.setAttribute('aria-controls', this.targetId);
 		this.btn.setAttribute('aria-expanded', 'false');
 
-		this.btn.addEventListener('click', e => { this.toggle.call(this, e); });
+		this.btn.addEventListener('click', e => { this.toggle(e); });
 		
 		return this;
 	},

@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Class and ARIA toggle UI state manipulation
- * @version 0.11.0: Wed, 09 Nov 2016 16:13:17 GMT
+ * @version 0.11.0: Fri, 11 Nov 2016 12:36:44 GMT
  * @author mjbp
  * @license MIT
  */
@@ -23,7 +23,7 @@ const StormToggler = {
 		this.btn.setAttribute('aria-controls', this.targetId);
 		this.btn.setAttribute('aria-expanded', 'false');
 
-		this.btn.addEventListener('click', e => { this.toggle.call(this, e); });
+		this.btn.addEventListener('click', e => { this.toggle(e); });
 		
 		return this;
 	},
