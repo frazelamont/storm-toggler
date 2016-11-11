@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Class and ARIA toggle UI state manipulation
- * @version 0.11.0: Fri, 11 Nov 2016 12:36:44 GMT
+ * @version 0.11.0: Fri, 11 Nov 2016 12:55:32 GMT
  * @author mjbp
  * @license MIT
  */

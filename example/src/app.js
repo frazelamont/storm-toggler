@@ -8,7 +8,7 @@ const onDOMContentLoadedTasks = [() => {
 		callback: function() {
 			if(this.open){
 				global.Togglers.forEach(toggler => {
-					if(toggler !== this && !!toggler.open){
+					if(toggler !== this && !!toggler.open && toggler.DOMElement !== this.targetElement){
 						toggler.toggle();
 					}
 				});
