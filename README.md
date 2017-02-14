@@ -39,7 +39,6 @@ var Toggler = require('./libs/storm-toggler');
 Toggler.init('.js-toggler');
 ```
 
-
 ##Example
 [https://mjbp.github.io/storm-toggler](https://mjbp.github.io/storm-toggler)
 
