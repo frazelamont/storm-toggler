@@ -1,5 +1,6 @@
 const defaults = {
 	delay: 0,
+	startOpen: false,
 	targetLocal: false,
 	prehook: false,
 	callback: false,
@@ -25,6 +26,7 @@ const StormToggler = {
 		});
 
 		this.btn.addEventListener('click', e => { this.toggle(e); });
+		this.settings.startOpen && this.toggle();
 		
 		return this;
 	},

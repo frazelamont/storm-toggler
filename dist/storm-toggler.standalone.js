@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Class and ARIA toggle UI state manipulation
- * @version 0.11.0: Wed, 15 Mar 2017 10:15:20 GMT
+ * @version 0.11.0: Wed, 15 Mar 2017 10:16:34 GMT
  * @author mjbp
  * @license MIT
  */
@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var defaults = {
 	delay: 0,
+	startOpen: false,
 	targetLocal: false,
 	prehook: false,
 	callback: false,
@@ -54,6 +55,7 @@ var StormToggler = {
 		this.btn.addEventListener('click', function (e) {
 			_this.toggle(e);
 		});
+		this.settings.startOpen && this.toggle();
 
 		return this;
 	},
