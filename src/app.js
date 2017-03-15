@@ -1,15 +1,22 @@
-var STORMUI = (function(w, d) {
-	'use strict';
-    
-    var StormToggler = require('./libs/storm.toggler'),
-        init = function() {
-            StormToggler.init(d.querySelectorAll('.js-toggle'));
-        };
-	
-	return {
-		init: init
-	};
-	
-})(window, document, undefined);
+import Toggler from './libs/storm-toggler';
 
-if('addEventListener' in window) window.addEventListener('DOMContentLoaded', STORMUI.init, false);
+const onDOMContentLoadedTasks = [() => {
+	Toggler.init('.js-toggle');
+	Toggler.init('.js-toggle__local', {
+		local: true,
+		delay: 0,
+		callback: function() {
+			if(this.open){
+				global.Togglers.forEach(toggler => {
+					if(toggler !== this && !!toggler.open && toggler.DOMElement !== this.targetElement){
+						toggler.toggle();
+					}
+				});
+			}
+		}
+	});
+}];
+
+global.Togglers = {};
+    
+if('addEventListener' in window) window.addEventListener('DOMContentLoaded', () => { onDOMContentLoadedTasks.forEach((fn) => fn()); });
