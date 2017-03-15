@@ -2,8 +2,8 @@ import Toggler from './libs/storm-toggler';
 
 const onDOMContentLoadedTasks = [() => {
 	Toggler.init('.js-toggle');
-	global.Togglers =Toggler.init('.js-toggle-local', {
-		targetLocal: true,
+	Toggler.init('.js-toggle__local', {
+		local: true,
 		delay: 0,
 		callback: function() {
 			if(this.open){

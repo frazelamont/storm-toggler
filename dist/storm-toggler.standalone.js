@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Class and ARIA toggle UI state manipulation
- * @version 0.11.0: Wed, 15 Mar 2017 10:16:34 GMT
+ * @version 0.11.0: Wed, 15 Mar 2017 13:46:42 GMT
  * @author mjbp
  * @license MIT
  */
@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", {
 var defaults = {
 	delay: 0,
 	startOpen: false,
-	targetLocal: false,
+	local: false,
 	prehook: false,
 	callback: false,
 	focus: true,
@@ -38,13 +38,13 @@ var StormToggler = {
 		var _this = this;
 
 		this.targetElement = document.getElementById(this.targetId);
-		this.classTarget = !this.settings.targetLocal ? document.documentElement : this.targetElement.parentNode;
+		this.classTarget = !this.settings.local ? document.documentElement : this.targetElement.parentNode;
 		this.siblingBtns = [].slice.call(document.querySelectorAll('[href="#' + this.targetId + '"], [data-target="#' + this.targetId + '"]'));
 		if (this.settings.focus) this.focusableChildren = this.getFocusableChildren();
 		if (this.settings.trapTab) this.boundKeyListener = this.keyListener.bind(this);
 
-		this.statusClass = !this.settings.targetLocal ? 'on--' + this.targetId : 'active';
-		this.animatingClass = !this.settings.targetLocal ? 'animating--' + this.targetId : 'animating';
+		this.statusClass = !this.settings.local ? 'on--' + this.targetId : 'active';
+		this.animatingClass = !this.settings.local ? 'animating--' + this.targetId : 'animating';
 
 		this.siblingBtns.forEach(function (btn) {
 			btn.setAttribute('role', 'button');

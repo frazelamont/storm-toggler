@@ -1,8 +1,8 @@
 {
   "name": "storm-toggler",
   "version": "0.11.0",
-  "description": "Class and ARIA toggle UI state manipulation",
-  "author": "mjbp",
+  "description": "Accessible UI state toggling",
+  "author": "stormid",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,9 +11,10 @@
   "bugs": {
     "url": "https://github.com/mjbp/storm-toggler/issues"
   },
-  "main": "dist/storm-toggler.min.js",
+  "main": "dist/storm-toggler.js",
   "keywords": [
     "stormid",
+    "component",
     "toggler",
     "off-canvas",
     "toggle",

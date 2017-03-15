@@ -22,7 +22,7 @@ let Togglers = Toggler.init('.js-toggler'),
 		callback(){}
 	}),
 	TogglersLocal = Toggler.init('.js-toggler-local', {
-		targetLocal: true
+		local: true
 	});
 
 describe('Initialisation', () => {

@@ -6,24 +6,31 @@
 
 Class and ARIA toggle UI state manipulation
 
-##Usage
-HTML
-```
-<a href="#target" class="js-toggler"></a>
-<div id="target"></div>
-```
+##Example
+[https://mjbp.github.io/storm-toggler](https://mjbp.github.io/storm-toggler)
 
-JS
+##Usage
+Installation
 ```
 npm i -S storm-toggler
 ```
+
+###Global toggle
+For document-level state changes such as off-canvas menus
+
+HTML
+```
+<a href="#nav" class="js-toggle"></a>
+<div id="nav" class="nav"></div>
+```
+JS
 either using es6 import
 ```
 import Toggler from 'storm-toggler';
 
-Toggler.init('.js-toggler');
+Toggler.init('.js-toggle');
 ```
-aynchronous browser loading (use the .standalone version in the /dist folder)
+or aynchronous browser loading (use the .standalone version in the /dist folder)
 ```
 import Load from 'storm-load';
 
@@ -32,38 +39,77 @@ Load('/content/js/async/storm-toggler.standalone.js')
         StormToggler.init('.js-toggler');
     });
 ```
-or es5 commonjs  (legacy, use the .standalone version in the /dist folder)
+CSS
 ```
-var Toggler = require('./libs/storm-toggler');
-
-Toggler.init('.js-toggler');
+.nav {
+    position:fixed;
+    transform:translateX(100%);
+    transition: transform 160ms ease;
+}
+.on--nav .nav {
+    transform:translateX(0);
+}
 ```
 
-##Example
-[https://mjbp.github.io/storm-toggler](https://mjbp.github.io/storm-toggler)
+###Local toggle
+To encapsulate a toggle state within part of the document
 
+HTML
+```
+<div class="parent">
+    <a href="#child-target" class="js-toggle__local"></a>
+    <div id="child-target" class="child"></div>
+</div>
+```
+JS
+either using es6 import
+```
+import Toggler from 'storm-toggler';
+
+Toggler.init('.js-toggle__local', {
+    local: true
+});
+```
+or aynchronous browser loading (use the .standalone version in the /dist folder)
+```
+import Load from 'storm-load';
+
+Load('/content/js/async/storm-toggler.standalone.js')
+    .then(() => {
+        StormToggler.init('.js-toggle__local', {
+            local: true
+        });
+    });
+```
+CSS
+```
+.child {
+    max-height:0;
+    overflow:hidden;
+    transition: max-width 160ms ease;
+}
+.parent.active .child {
+    max-height:1000px;
+}
+```
 
 ##Options
 ```
-    {
-		delay: 0,
-		targetLocal: false,
-		callback: null
-    }
+{
+	delay: 0, //duration of animating out of toggled state
+	startOpen: false,  //intial toggle state
+	local: false, // encapsulate in small part of document
+	prehook: false, //function to fire before each toggle
+	callback: false, //function to fire after each toggle
+	focus: true, //focus on first focusable child node of the target element
+	trapTab: false //trap tab in the target element
 ```
-
 e.g.
 ```
 Toggler.init('.js-toggler', {
-    delay: 200
+    startOpen: true
 });
 ```
-
-
-##API
-####`Toggler.init(selector, opts)`
-Initialise the module with a DOM selector and  options object
-
 
 ##Tests
 ```
