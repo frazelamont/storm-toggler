@@ -103,6 +103,7 @@ CSS
 	callback: false, //function to fire after each toggle
 	focus: true, //focus on first focusable child node of the target element
 	trapTab: false //trap tab in the target element
+}
 ```
 e.g.
 ```
