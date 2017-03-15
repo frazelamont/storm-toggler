@@ -11,7 +11,7 @@ const StormToggler = {
 	init() {
 		this.targetElement = document.getElementById(this.targetId);
 		this.classTarget = (!this.settings.targetLocal) ? document.documentElement : this.targetElement.parentNode;
-		this.siblingBtns = [].slice.call(document.querySelectorAll('[href*="#' + this.targetId + '"], [data-target*="#' + this.targetId + '"]'));
+		this.siblingBtns = [].slice.call(document.querySelectorAll('[href="#' + this.targetId + '"], [data-target="#' + this.targetId + '"]'));
 		if(this.settings.focus) this.focusableChildren = this.getFocusableChildren();
 		if(this.settings.trapTab) this.boundKeyListener = this.keyListener.bind(this);
 
