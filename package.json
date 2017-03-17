@@ -1,6 +1,6 @@
 {
   "name": "storm-toggler",
-  "version": "0.11.0",
+  "version": "1.0.0",
   "description": "Accessible UI state toggling",
   "author": "stormid",
   "license": "MIT",
