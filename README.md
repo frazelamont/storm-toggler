@@ -1,4 +1,4 @@
-#Storm Toggler
+# Storm Toggler
 
 [![Build Status](https://travis-ci.org/mjbp/storm-toggler.svg?branch=master)](https://travis-ci.org/mjbp/storm-toggler)
 [![codecov.io](http://codecov.io/github/mjbp/storm-toggler/coverage.svg?branch=master)](http://codecov.io/github/mjbp/storm-toggler?branch=master)
@@ -6,16 +6,16 @@
 
 Class and ARIA toggle UI state manipulation
 
-##Example
+## Example
 [https://mjbp.github.io/storm-toggler](https://mjbp.github.io/storm-toggler)
 
-##Usage
+## Usage
 Installation
 ```
 npm i -S storm-toggler
 ```
 
-###Global toggle
+### Global toggle
 For document-level state changes such as off-canvas menus
 
 HTML
@@ -51,7 +51,7 @@ CSS
 }
 ```
 
-###Local toggle
+### Local toggle
 To encapsulate a toggle state within part of the document
 
 HTML
@@ -93,7 +93,7 @@ CSS
 }
 ```
 
-##Options
+## Options
 ```
 {
 	delay: 0, //duration of animating out of toggled state
@@ -112,18 +112,18 @@ Toggler.init('.js-toggler', {
 });
 ```
 
-##Tests
+## Tests
 ```
 npm run test
 ```
 
-##Browser support
+## Browser support
 This is module has both es6 and es5 distributions. The es6 version should be used in a workflow that transpiles.
 
 The es5 version depends unpon Object.assign, element.classList, and Promises so all evergreen browsers are supported out of the box, ie9+ is supported with polyfills. ie8+ will work with even more polyfils for Array functions and eventListeners.
 
-##Dependencies
+## Dependencies
 None
 
-##License
+## License
 MIT
