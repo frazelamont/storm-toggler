@@ -1,7 +1,7 @@
 /**
- * @name storm-toggler: Class and ARIA toggle UI state manipulation
- * @version 0.11.0: Wed, 15 Mar 2017 13:46:42 GMT
- * @author mjbp
+ * @name storm-toggler: Accessible UI state toggling
+ * @version 1.0.0: Tue, 21 Mar 2017 13:36:42 GMT
+ * @author stormid
  * @license MIT
  */
 (function(root, factory) {
