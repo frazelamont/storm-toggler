@@ -17,8 +17,8 @@ const html = `<a href="#target-1" class="js-toggler">Test toggler</a>
 document.body.innerHTML = html;
 
 let Togglers = Toggler.init('.js-toggler'),
-	TogglersNoDelay = Toggler.init('.js-toggler-2', {
-		delay: 0,
+	TogglersWithDelay = Toggler.init('.js-toggler-2', {
+		delay: 100,
 		callback(){}
 	}),
 	TogglersLocal = Toggler.init('.js-toggler-local', {
@@ -49,16 +49,16 @@ describe('Initialisation', () => {
 	});
 
 	it('should initialisation with different settings if different options are passed', () => {
-		should(TogglersNoDelay[0].settings.delay).not.equal(Togglers[0].settings.delay);
+		should(TogglersWithDelay[0].settings.delay).not.equal(Togglers[0].settings.delay);
 	});
 
 	it('should attach the handleClick eventListener to DOMElement click event to toggle documentElement className', () => {
-		TogglersNoDelay[0].btn.click();
+		TogglersWithDelay[0].btn.click();
 		setTimeout(() => {
 			Array.from(document.documentElement.classList).should.containEql('on--target-3');
-			TogglersNoDelay[0].btn.click();
+			TogglersWithDelay[0].btn.click();
 			setTimeout(() => {
-				TogglersNoDelay.from(document.documentElement.classList).should.not.containEql('on--target-3');
+				TogglersWithDelay.from(document.documentElement.classList).should.not.containEql('on--target-3');
 			}, 1000);
 		});
 	});
@@ -75,7 +75,7 @@ describe('Initialisation', () => {
 	});
 	
 	it('should pass an invokable callback as an option', () => {
-		TogglersNoDelay[0].settings.should.have.property('callback').Function();
+		TogglersWithDelay[0].settings.should.have.property('callback').Function();
 	});
 
 	it('should change sibling buttons aria expanded attribute', () => {
