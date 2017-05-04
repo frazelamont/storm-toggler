@@ -1,4 +1,4 @@
-import Toggler from './libs/storm-toggler';
+import Toggler from './libs/component';
 
 const onDOMContentLoadedTasks = [() => {
 	Toggler.init('.js-toggle');

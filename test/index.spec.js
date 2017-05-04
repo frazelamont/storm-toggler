@@ -1,6 +1,6 @@
 import should from 'should';
-import Toggler from '../dist/storm-toggler';
 import 'jsdom-global/register';
+import Toggler from '../dist/storm-toggler.standalone';
 
 const html = `<a href="#target-1" class="js-toggler">Test toggler</a>
 			 <a href="#target-1" class="js-toggler">Test toggler</a>

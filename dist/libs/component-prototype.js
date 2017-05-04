@@ -1,20 +1,7 @@
-/**
- * @name storm-toggler: Accessible UI state toggling
- * @version 1.0.0: Tue, 21 Mar 2017 13:36:41 GMT
- * @author stormid
- * @license MIT
- */
-const defaults = {
-	delay: 0,
-	startOpen: false,
-	local: false,
-	prehook: false,
-	callback: false,
-	focus: true,
-	trapTab: false
-};
+const TRIGGER_EVENTS = [window.PointerEvent ? 'pointerdown' : 'ontouchstart' in window ? 'touchstart' : 'click', 'keydown' ],
+      TRIGGER_KEYCODES = [13, 32];
 
-const StormToggler = {
+export default {
 	init() {
 		this.targetElement = document.getElementById(this.targetId);
 		this.classTarget = (!this.settings.local) ? document.documentElement : this.targetElement.parentNode;
@@ -31,7 +18,12 @@ const StormToggler = {
 			btn.setAttribute('aria-expanded', 'false');
 		});
 
-		this.btn.addEventListener('click', e => { this.toggle(e); });
+        TRIGGER_EVENTS.forEach(ev => {
+		    this.btn.addEventListener(ev, e => {
+                if(!!e.keyCode && !~TRIGGER_KEYCODES.indexOf(e.keyCode)) return;
+                this.toggle(e);
+            });
+        });
 		this.settings.startOpen && this.toggle();
 		
 		return this;
@@ -82,9 +74,7 @@ const StormToggler = {
 			e.preventDefault();
 			this.toggle();
 		}
-		if (this.isOpen && e.keyCode === 9) {
-			this.trapTab(e);
-		}
+		if (this.isOpen && e.keyCode === 9) this.trapTab(e);
 	},
 	toggle: function(e){
 		let delay = this.classTarget.classList.contains(this.statusClass) ?  this.settings.delay : 0;
@@ -105,20 +95,4 @@ const StormToggler = {
 			(!!this.settings.callback && typeof this.settings.callback === 'function') && this.settings.callback.call(this);
 		}, delay);
 	}
-};
-
-const init = (sel, opts) => {
-	let els = [].slice.call(document.querySelectorAll(sel));
-	
-	if(!els.length) throw new Error('Toggler cannot be initialised, no augmentable elements found');
-
-	return els.map((el) => {
-		return Object.assign(Object.create(StormToggler), {
-			btn: el,
-			targetId: (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1),
-			settings: Object.assign({}, defaults, opts)
-		}).init();
-	});
-};
-
-export default { init };
+}
