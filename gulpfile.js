@@ -80,27 +80,33 @@ gulp.task('js:es5', function() {
             template: umdTemplate
         }))
         .pipe(header(banner, {pkg : pkg}))
+  		.pipe(rename({suffix: '.standalone'}))
+		.pipe(gulp.dest('dist/'));
+});
+
+gulp.task('js:es5-rollup', function() {
+	return gulp.src('src/index.js')
+        .pipe(rollup({
+			allowRealFiles: true,
+            entry: 'src/index.js',
+			format: 'es',
+			plugins: [
+				rollupNodeResolve(),
+                commonjs()
+			]
+        }))
+        .pipe(babel({
+			presets: ['es2015']
+		}))
+        .pipe(wrap({
+            template: umdTemplate
+        }))
+        .pipe(header(banner, {pkg : pkg}))
   		.pipe(rename({
             basename: pkg.name,
             suffix: '.standalone'
         }))
 		.pipe(gulp.dest('dist/'));
-});
-
-gulp.task('js:async', function() {
-    return gulp.src('src/*.js')
-        .pipe(header(banner, {pkg : pkg}))
-		.pipe(browserify({
-          insertGlobals : true,
-          debug : false,
-		  standalone: componentName()
-        }))
-		.pipe(uglify())
-  		.pipe(rename({
-            basename: pkg.name,
-            suffix: '.standalone'
-        }))
-		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('js:es6', function() {
@@ -113,7 +119,7 @@ gulp.task('js:es6', function() {
 		.pipe(gulp.dest('./dist/lib/'));
 });
 
-gulp.task('js', ['js:es6', 'js:es5']);
+gulp.task('js', ['js:es6', 'js:es5-rollup']);
 
 gulp.task('copy', function() {
     return gulp.src('./src/**/*.js')
