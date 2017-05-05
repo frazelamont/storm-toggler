@@ -109,8 +109,8 @@ gulp.task('js:es6', function() {
         .pipe(header(banner, {pkg : pkg}))
 		.pipe(gulp.dest('dist/'));
 
-    return gulp.src('./src/libs/*.js')
-		.pipe(gulp.dest('./dist/libs/'));
+    return gulp.src('./src/lib/*.js')
+		.pipe(gulp.dest('./dist/lib/'));
 });
 
 gulp.task('js', ['js:es6', 'js:es5']);

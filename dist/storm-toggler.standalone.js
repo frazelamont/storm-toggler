@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible UI state toggling
- * @version 1.0.3: Thu, 04 May 2017 15:25:57 GMT
+ * @version 1.1.0: Fri, 05 May 2017 10:05:22 GMT
  * @author stormid
  * @license MIT
  */
@@ -24,11 +24,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _defaults = require('./libs/defaults');
+var _defaults = require('./lib/defaults');
 
 var _defaults2 = _interopRequireDefault(_defaults);
 
-var _componentPrototype = require('./libs/component-prototype');
+var _componentPrototype = require('./lib/component-prototype');
 
 var _componentPrototype2 = _interopRequireDefault(_componentPrototype);
 

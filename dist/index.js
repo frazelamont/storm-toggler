@@ -1,11 +1,11 @@
 /**
  * @name storm-toggler: Accessible UI state toggling
- * @version 1.0.3: Thu, 04 May 2017 15:25:56 GMT
+ * @version 1.1.0: Fri, 05 May 2017 10:05:22 GMT
  * @author stormid
  * @license MIT
  */
-import defaults from './libs/defaults';
-import componentPrototype from './libs/component-prototype';
+import defaults from './lib/defaults';
+import componentPrototype from './lib/component-prototype';
 
 const init = (sel, opts) => {
 	let els = [].slice.call(document.querySelectorAll(sel));
