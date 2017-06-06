@@ -99,6 +99,7 @@ gulp.task('js:es5-rollup', function() {
 			presets: ['es2015']
 		}))
         .pipe(wrap({
+            namespace: componentName(),
             template: umdTemplate
         }))
         .pipe(header(banner, {pkg : pkg}))

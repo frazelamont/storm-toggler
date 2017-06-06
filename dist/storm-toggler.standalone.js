@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible UI state toggling
- * @version 1.1.2: Fri, 05 May 2017 11:58:39 GMT
+ * @version 1.2.0: Tue, 06 Jun 2017 16:32:04 GMT
  * @author stormid
  * @license MIT
  */
@@ -14,7 +14,7 @@
        module.exports = mod.exports.default
    } else {
        factory(mod.exports);
-       root.gulpWrapUmd = mod.exports.default
+       root.StormToggler = mod.exports.default
    }
 
 }(this, function(exports) {
