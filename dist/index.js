@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible UI state toggling
- * @version 1.2.0: Tue, 06 Jun 2017 16:32:04 GMT
+ * @version 1.2.1: Fri, 09 Jun 2017 09:52:29 GMT
  * @author stormid
  * @license MIT
  */
@@ -16,7 +16,7 @@ const init = (sel, opts) => {
 		return Object.assign(Object.create(componentPrototype), {
 			btn: el,
 			targetId: (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1),
-			settings: Object.assign({}, defaults, opts)
+			settings: Object.assign({}, defaults, el.dataset, opts)
 		}).init();
 	});
 };

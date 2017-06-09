@@ -10,7 +10,7 @@ const init = (sel, opts) => {
 		return Object.assign(Object.create(componentPrototype), {
 			btn: el,
 			targetId: (el.getAttribute('href')|| el.getAttribute('data-target')).substr(1),
-			settings: Object.assign({}, defaults, opts)
+			settings: Object.assign({}, defaults, el.dataset, opts)
 		}).init();
 	});
 };
