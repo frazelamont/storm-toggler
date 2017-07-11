@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-touch-fullscreen" content="YES">
+    <script src="https://cdn.polyfill.io/v2/polyfill.js?features=Object.assign|always"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism-okaidia.min.css">
     <style>
         * {
@@ -102,6 +103,7 @@
             background:#191919;
             width:50%;
             padding:50px 5%;
+            visibility: hidden;
         }
         .eg__nav-item {
             display: block;
@@ -109,6 +111,7 @@
         }
         .on--nav .eg__nav {
             transform: translateX(0);
+            visibility: visible;
         }
         .eg__nav-close {
             position: fixed;
@@ -135,12 +138,12 @@
         <h1>Toggler</h1>
         <h2>Examples</h2>
         <h2>1. Global toggle - off-canvas menu</h2>
-        <button data-target="#nav" class="js-toggle">
+        <a href="#nav" class="js-toggle">
             <svg fill="#191919" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
             </svg> Menu
-        </button>
+        </a>
         <nav id="nav" class="eg__nav">
             <a class="eg__nav-item" href="#">Home</a>
             <a class="eg__nav-item" href="#">About</a>
@@ -155,10 +158,10 @@
         <hr>
         <h2>2. Local toggle</h2>
         <div class="eg__local">
-            <a href="#more-1" class="js-toggle__local toggle__local">About local toggling</a>
+            <a href="#more-1" class="js-toggle__local toggle__local" data-local="true">About local toggling</a>
             <div id="more-1" class="eg__local-target">
                 <p>Local toggles change the className of the parentNode rather than the documentElement for isolating state to part of the DOM</p>
-                <p><a href="#more-1" class="js-toggle__local">Close</a></p>
+                <p><a href="#more-1" class="js-toggle__local" data-local="true">Close</a></p>
             </div>
         </div>
         <hr>

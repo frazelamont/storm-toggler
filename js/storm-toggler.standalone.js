@@ -1,7 +1,7 @@
 /**
- * @name storm-toggler: Class and ARIA toggle UI state manipulation
- * @version 0.11.0: Wed, 15 Mar 2017 13:46:42 GMT
- * @author mjbp
+ * @name storm-toggler: Accessible UI state toggling
+ * @version 1.3.0: Tue, 11 Jul 2017 19:34:48 GMT
+ * @author stormid
  * @license MIT
  */
 (function(root, factory) {
@@ -33,7 +33,10 @@ var defaults = {
 	trapTab: false
 };
 
-var StormToggler = {
+var TRIGGER_EVENTS = ['click', 'keydown'];
+var TRIGGER_KEYCODES = [13, 32];
+
+var componentPrototype = {
 	init: function init() {
 		var _this = this;
 
@@ -52,8 +55,11 @@ var StormToggler = {
 			btn.setAttribute('aria-expanded', 'false');
 		});
 
-		this.btn.addEventListener('click', function (e) {
-			_this.toggle(e);
+		TRIGGER_EVENTS.forEach(function (ev) {
+			_this.btn.addEventListener(ev, function (e) {
+				if (!!e.keyCode && !~TRIGGER_KEYCODES.indexOf(e.keyCode)) return;
+				_this.toggle(e);
+			});
 		});
 		this.settings.startOpen && this.toggle();
 
@@ -109,9 +115,7 @@ var StormToggler = {
 			e.preventDefault();
 			this.toggle();
 		}
-		if (this.isOpen && e.keyCode === 9) {
-			this.trapTab(e);
-		}
+		if (this.isOpen && e.keyCode === 9) this.trapTab(e);
 	},
 
 	toggle: function toggle(e) {
@@ -143,13 +147,15 @@ var init = function init(sel, opts) {
 	if (!els.length) throw new Error('Toggler cannot be initialised, no augmentable elements found');
 
 	return els.map(function (el) {
-		return Object.assign(Object.create(StormToggler), {
+		return Object.assign(Object.create(componentPrototype), {
 			btn: el,
 			targetId: (el.getAttribute('href') || el.getAttribute('data-target')).substr(1),
-			settings: Object.assign({}, defaults, opts)
+			settings: Object.assign({}, defaults, el.dataset, opts)
 		}).init();
 	});
 };
 
-exports.default = { init: init };;
+var index = { init: init };
+
+exports.default = index;;
 }));
