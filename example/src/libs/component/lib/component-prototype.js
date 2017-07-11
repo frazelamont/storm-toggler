@@ -1,4 +1,4 @@
-const TRIGGER_EVENTS = [window.PointerEvent ? 'pointerdown' : 'ontouchstart' in window ? 'touchstart' : 'click', 'keydown' ],
+const TRIGGER_EVENTS = ['click', 'keydown'],
       TRIGGER_KEYCODES = [13, 32];
 
 export default {
