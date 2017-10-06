@@ -43,7 +43,7 @@ describe('Initialisation', () => {
 		Togglers[0].should.have.property('settings').Object();
 		Togglers[0].should.have.property('init').Function();
 		Togglers[0].should.have.property('toggleAttributes').Function();
-		Togglers[0].should.have.property('toggleDocumentState').Function();
+		Togglers[0].should.have.property('toggleState').Function();
 		Togglers[0].should.have.property('toggle').Function();
     
 	});
