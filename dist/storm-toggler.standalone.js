@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible UI state toggling
- * @version 1.2.1: Fri, 09 Jun 2017 09:52:30 GMT
+ * @version 1.3.1: Tue, 03 Oct 2017 12:18:56 GMT
  * @author stormid
  * @license MIT
  */
@@ -33,7 +33,7 @@ var defaults = {
 	trapTab: false
 };
 
-var TRIGGER_EVENTS = [window.PointerEvent ? 'pointerdown' : 'ontouchstart' in window ? 'touchstart' : 'click', 'keydown'];
+var TRIGGER_EVENTS = ['click', 'keydown'];
 var TRIGGER_KEYCODES = [13, 32];
 
 var componentPrototype = {
@@ -77,7 +77,7 @@ var componentPrototype = {
 			sibling.setAttribute('aria-expanded', sibling.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
 		});
 	},
-	toggleDocumentState: function toggleDocumentState() {
+	toggleState: function toggleState() {
 		this.classTarget.classList.remove(this.animatingClass);
 		this.classTarget.classList.toggle(this.statusClass);
 	},
@@ -135,7 +135,7 @@ var componentPrototype = {
 		window.setTimeout(function () {
 			!!_this3.settings.focus && _this3.focusableChildren && _this3.manageFocus();
 			_this3.toggleAttributes();
-			_this3.toggleDocumentState();
+			_this3.toggleState();
 			!!_this3.settings.callback && typeof _this3.settings.callback === 'function' && _this3.settings.callback.call(_this3);
 		}, delay);
 	}

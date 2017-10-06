@@ -1,4 +1,4 @@
-const TRIGGER_EVENTS = [window.PointerEvent ? 'pointerdown' : 'ontouchstart' in window ? 'touchstart' : 'click', 'keydown' ],
+const TRIGGER_EVENTS = ['click', 'keydown'],
       TRIGGER_KEYCODES = [13, 32];
 
 export default {
@@ -39,7 +39,7 @@ export default {
 			sibling.setAttribute('aria-expanded', sibling.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
 		});
 	},
-	toggleDocumentState: function(){
+	toggleState: function(){
 		this.classTarget.classList.remove(this.animatingClass);
 		this.classTarget.classList.toggle(this.statusClass);
 	},
@@ -91,7 +91,7 @@ export default {
 		window.setTimeout(() => {
 			(!!this.settings.focus && this.focusableChildren) && this.manageFocus();
 			this.toggleAttributes();
-			this.toggleDocumentState();
+			this.toggleState();
 			(!!this.settings.callback && typeof this.settings.callback === 'function') && this.settings.callback.call(this);
 		}, delay);
 	}

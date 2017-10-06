@@ -1,6 +1,6 @@
 /**
  * @name storm-toggler: Accessible UI state toggling
- * @version 1.2.1: Fri, 09 Jun 2017 09:52:29 GMT
+ * @version 1.3.1: Tue, 03 Oct 2017 12:18:54 GMT
  * @author stormid
  * @license MIT
  */
